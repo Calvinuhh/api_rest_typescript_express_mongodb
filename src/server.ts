@@ -1,7 +1,7 @@
 import express from "express";
 import { json } from "express";
 import morgan from "morgan";
-import router from "./routes";
+import router from "./routers";
 
 const server = express();
 
