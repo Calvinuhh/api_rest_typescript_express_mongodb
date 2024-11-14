@@ -13,7 +13,7 @@ const itemsRouter: Router = Router();
 itemsRouter.post("/", createItem);
 itemsRouter.get("/", getItems);
 itemsRouter.get("/:id", getItem);
-itemsRouter.put("/", updateItem);
-itemsRouter.delete("/", deleteItem);
+itemsRouter.put("/:id", updateItem);
+itemsRouter.delete("/:id", deleteItem);
 
 export default itemsRouter;

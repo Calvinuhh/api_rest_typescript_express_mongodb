@@ -1,44 +1,107 @@
 import { Request, Response } from "express";
+import {
+  createCarService,
+  getCarsService,
+  getCarService,
+  updateCarService,
+  deleteCarService,
+} from "../services/item";
 
-export const createItem = (req: Request, res: Response): void => {
+export const createItem = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
-    // const {} = req.body;
+    const { name, color, gas, year, description, price } = req.body;
 
-    res.status(200).json(req.body);
+    const responseItem = await createCarService({
+      name,
+      color,
+      gas,
+      year,
+      description,
+      price,
+    });
+
+    res.status(200).json(responseItem);
   } catch (error) {
     const err = error as Error;
-    res.status(400).json({ message: err.message });
+    res.status(400).json(err.message);
   }
 };
 
-export const getItem = (req: Request, res: Response): void => {
+export const getItem = async (req: Request, res: Response): Promise<void> => {
   try {
+    const { id } = req.params;
+
+    const item = await getCarService(id);
+    if (!item) {
+      res.status(404).json("Car not found");
+    } else res.status(200).json(item);
   } catch (error) {
     const err = error as Error;
-    res.status(400).json({ message: err.message });
+    res.status(400).json(err.message);
   }
 };
 
-export const getItems = (req: Request, res: Response): void => {
+export const getItems = async (req: Request, res: Response): Promise<void> => {
   try {
+    const items = await getCarsService();
+
+    if (items.length === 0) {
+      res.status(404).json("No cars found");
+    } else res.status(200).json(items);
   } catch (error) {
     const err = error as Error;
-    res.status(400).json({ message: err.message });
+    res.status(400).json(err.message);
   }
 };
 
-export const updateItem = (req: Request, res: Response): void => {
+export const updateItem = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
+    const { id } = req.params;
+    const { name, color, gas, year, description, price } = req.body;
+
+    for (const value in req.body) {
+      if (!req.body[value]) {
+        throw Error(`Missing field: ${value}`);
+      }
+    }
+
+    const updateCar = await updateCarService(id, {
+      name,
+      color,
+      gas,
+      year,
+      description,
+      price,
+    });
+
+    if (!updateCar) {
+      res.status(404).json("Car not found");
+    } else res.status(200).json(updateCar);
   } catch (error) {
     const err = error as Error;
-    res.status(400).json({ message: err.message });
+    res.status(400).json(err.message);
   }
 };
 
-export const deleteItem = (req: Request, res: Response): void => {
+export const deleteItem = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
+    const { id } = req.params;
+
+    const deleteCar = await deleteCarService(id);
+    if (!deleteCar) {
+      res.status(404).json("Car not found");
+    } else res.status(200).json(deleteCar);
   } catch (error) {
     const err = error as Error;
-    res.status(400).json({ message: err.message });
+    res.status(400).json(err.message);
   }
 };
