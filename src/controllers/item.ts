@@ -30,6 +30,19 @@ export const createItem = async (
   }
 };
 
+export const getItems = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const items = await getCarsService();
+
+    if (items.length === 0) {
+      res.status(404).json("No cars found");
+    } else res.status(200).json(items);
+  } catch (error) {
+    const err = error as Error;
+    res.status(400).json(err.message);
+  }
+};
+
 export const getItem = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
@@ -38,19 +51,6 @@ export const getItem = async (req: Request, res: Response): Promise<void> => {
     if (!item) {
       res.status(404).json("Car not found");
     } else res.status(200).json(item);
-  } catch (error) {
-    const err = error as Error;
-    res.status(400).json(err.message);
-  }
-};
-
-export const getItems = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const items = await getCarsService();
-
-    if (items.length === 0) {
-      res.status(404).json("No cars found");
-    } else res.status(200).json(items);
   } catch (error) {
     const err = error as Error;
     res.status(400).json(err.message);

@@ -1,3 +1,4 @@
+import { DeleteResult } from "mongoose";
 import Car from "../interfaces/car.interface";
 import ItemModel from "../models/item";
 
@@ -30,8 +31,8 @@ export const updateCarService = async (
   return updateCar;
 };
 
-export const deleteCarService = async (id: string): Promise<Car | null> => {
-  const deletedCar = ItemModel.findOneAndDelete({ _id: id });
+export const deleteCarService = async (id: string): Promise<DeleteResult> => {
+  const deletedCar = ItemModel.deleteOne({ _id: id });
 
   return deletedCar;
 };
