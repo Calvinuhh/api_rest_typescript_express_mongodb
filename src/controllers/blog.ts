@@ -2,10 +2,6 @@ import { Request, Response } from "express";
 
 export const createItem = (req: Request, res: Response): void => {
   try {
-    // const { name }: { name: string } = req.body;
-
-    // if (!name) throw Error("Vacio");
-
     res.status(200).json(req.body);
   } catch (error) {
     const err = error as Error;

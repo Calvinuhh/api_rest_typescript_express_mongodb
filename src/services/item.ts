@@ -1,6 +1,5 @@
-import { DeleteResult } from "mongoose";
 import Car from "../interfaces/car.interface";
-import ItemModel from "../models/item";
+import ItemModel from "../models/Item";
 
 export const createCarService = async (item: Car): Promise<Car> => {
   const newItem = await ItemModel.create(item);
@@ -11,13 +10,17 @@ export const createCarService = async (item: Car): Promise<Car> => {
 export const getCarsService = async (): Promise<Car[]> => {
   const items = await ItemModel.find();
 
-  return items;
+  if (items.length === 0) {
+    throw Error("No Cars Found");
+  } else return items;
 };
 
 export const getCarService = async (id: string): Promise<Car | null> => {
   const item = await ItemModel.findOne({ _id: id });
 
-  return item;
+  if (!item) {
+    throw Error("Car Not Found");
+  } else return item;
 };
 
 export const updateCarService = async (
@@ -28,11 +31,15 @@ export const updateCarService = async (
     new: true,
   });
 
-  return updateCar;
+  if (!updateCar) {
+    throw Error("Car Not Found");
+  } else return updateCar;
 };
 
-export const deleteCarService = async (id: string): Promise<DeleteResult> => {
-  const deletedCar = ItemModel.deleteOne({ _id: id });
+export const deleteCarService = async (id: string): Promise<Car> => {
+  const deletedCar = await ItemModel.findOneAndDelete({ _id: id });
 
-  return deletedCar;
+  if (!deletedCar) {
+    throw Error("Car Not Found");
+  } else return deletedCar;
 };

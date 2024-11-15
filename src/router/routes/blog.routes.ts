@@ -13,7 +13,7 @@ const blogsRouter: Router = Router();
 blogsRouter.post("/", createItem);
 blogsRouter.get("/", getItems);
 blogsRouter.get("/:id", getItem);
-blogsRouter.put("/", updateItem);
-blogsRouter.delete("/", deleteItem);
+blogsRouter.put("/:id", updateItem);
+blogsRouter.delete("/:id", deleteItem);
 
 export default blogsRouter;
