@@ -1,6 +1,6 @@
 import Car from "../interfaces/Car.interface";
 import { carDTO, carSinglePropDTO } from "../DTOs/carsDTO";
-import ItemModel from "../models/Item";
+import ItemModel from "../models/Cars";
 
 export const createCarService = async (item: carDTO): Promise<Car> => {
   const newItem = await ItemModel.create(item);
@@ -37,7 +37,7 @@ export const updateCarService = async (
   } else return updateCar;
 };
 
-export const updateSingleCarService = async (
+export const updatePropCarService = async (
   id: string,
   data: carSinglePropDTO
 ): Promise<carSinglePropDTO> => {

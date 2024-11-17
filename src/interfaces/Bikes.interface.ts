@@ -1,4 +1,4 @@
-export default interface Car {
+export default interface Bike {
   id: string;
   name: string;
   color: string;
@@ -7,6 +7,4 @@ export default interface Car {
   year: number;
   price: number;
   state: "new" | "used";
-  doors: 2 | 4;
-  convertible: true | false;
 }

@@ -5,7 +5,7 @@ import {
   getCarService,
   updateCarService,
   deleteCarService,
-  updateSingleCarService,
+  updatePropCarService,
 } from "../services/carsServices";
 
 export const createItem = async (
@@ -13,14 +13,28 @@ export const createItem = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { name, color, gas, year, price } = req.body;
+    const {
+      name,
+      color,
+      gas,
+      transmission,
+      year,
+      price,
+      state,
+      doors,
+      convertible,
+    } = req.body;
 
     const responseItem = await createCarService({
       name: name.trim(),
       color: color.trim(),
       gas: gas.trim(),
+      transmission,
       year,
       price,
+      state,
+      doors,
+      convertible,
     });
 
     res.status(201).json(responseItem);
@@ -60,7 +74,17 @@ export const updateItem = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const { name, color, gas, year, price } = req.body;
+    const {
+      name,
+      color,
+      gas,
+      transmission,
+      year,
+      price,
+      state,
+      doors,
+      convertible,
+    } = req.body;
 
     for (const value in req.body) {
       if (!req.body[value]) {
@@ -72,8 +96,12 @@ export const updateItem = async (
       name: name.trim(),
       color: color.trim(),
       gas: gas.trim(),
+      transmission,
       year,
       price,
+      state,
+      doors,
+      convertible,
     });
 
     res.status(201).json(updateCar);
@@ -98,7 +126,7 @@ export const updateCarProp = async (
     if (prop === "gas" && newData !== "electric" && newData !== "gasoline") {
       throw Error("Gas must be electric or gasoline");
     }
-    const newProp = await updateSingleCarService(id, { [prop]: newData });
+    const newProp = await updatePropCarService(id, { [prop]: newData });
     res.status(200).json(newProp);
   } catch (error) {
     const err = error as Error;

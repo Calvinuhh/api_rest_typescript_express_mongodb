@@ -1,17 +1,14 @@
-export type carDTO = {
+export type BikeDTO = {
   name: string;
   color: string;
   gas: "gasoline" | "electric";
-  transmission: "automatic" | "manual";
   year: number;
   price: number;
   state: "new" | "used";
-  doors: 2 | 4;
-  convertible: true | false;
 };
 
-export type carSinglePropDTO = {
+export type bikeSinglePropDTO = {
   gas?: "gasoline" | "electric";
   state?: "new" | "used";
-  prop?: string | number | boolean;
+  prop?: string | number;
 };

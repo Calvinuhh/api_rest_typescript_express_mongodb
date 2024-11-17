@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 export const createItem = (req: Request, res: Response): void => {
   try {
-    res.status(200).json(req.body);
+
   } catch (error) {
     const err = error as Error;
     res.status(400).json(err.message);
@@ -11,6 +11,7 @@ export const createItem = (req: Request, res: Response): void => {
 
 export const getItem = (req: Request, res: Response): void => {
   try {
+
   } catch (error) {
     const err = error as Error;
     res.status(400).json(err.message);
@@ -19,6 +20,7 @@ export const getItem = (req: Request, res: Response): void => {
 
 export const getItems = (req: Request, res: Response): void => {
   try {
+
   } catch (error) {
     const err = error as Error;
     res.status(400).json(err.message);
@@ -27,6 +29,7 @@ export const getItems = (req: Request, res: Response): void => {
 
 export const updateItem = (req: Request, res: Response): void => {
   try {
+
   } catch (error) {
     const err = error as Error;
     res.status(400).json(err.message);
@@ -35,6 +38,7 @@ export const updateItem = (req: Request, res: Response): void => {
 
 export const deleteItem = (req: Request, res: Response): void => {
   try {
+    
   } catch (error) {
     const err = error as Error;
     res.status(400).json(err.message);

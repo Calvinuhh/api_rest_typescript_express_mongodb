@@ -6,7 +6,7 @@ import {
   getItem,
   updateItem,
   deleteItem,
-} from "../../controllers/blog";
+} from "../../controllers/bikesControllers";
 
 const blogsRouter: Router = Router();
 

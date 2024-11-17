@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import Car from "../interfaces/Car.interface";
+import Bike from "../interfaces/Bikes.interface";
 
-const ItemSchema = new Schema<Car>(
+const ItemSchema = new Schema<Bike>(
   {
     name: {
       type: String,
@@ -16,6 +16,10 @@ const ItemSchema = new Schema<Car>(
       enum: ["gasoline", "electric"],
       required: true,
     },
+    transmission: {
+      type: String,
+      enum: ["automatic", "manual"],
+    },
     year: {
       type: Number,
       required: true,
@@ -24,12 +28,17 @@ const ItemSchema = new Schema<Car>(
       type: Number,
       required: true,
     },
+    state: {
+      type: String,
+      enum: ["new", "used"],
+      required: true,
+    },
   },
   {
     versionKey: false,
   }
 );
 
-const ItemModel = model("items", ItemSchema);
+const ItemModel = model("bikes", ItemSchema);
 
 export default ItemModel;
