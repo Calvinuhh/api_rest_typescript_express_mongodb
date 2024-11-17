@@ -3,6 +3,10 @@ export type carDTO = {
   color: string;
   gas: "gasoline" | "electric";
   year: number;
-  description: string;
   price: number;
+};
+
+export type carSinglePropDTO = {
+  gas?: "gasoline" | "electric";
+  prop?: string | number;
 };

@@ -5,6 +5,7 @@ import {
   getCarService,
   updateCarService,
   deleteCarService,
+  updateSingleCarService,
 } from "../services/carsServices";
 
 export const createItem = async (
@@ -12,14 +13,13 @@ export const createItem = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { name, color, gas, year, description, price } = req.body;
+    const { name, color, gas, year, price } = req.body;
 
     const responseItem = await createCarService({
       name: name.trim(),
       color: color.trim(),
       gas: gas.trim(),
       year,
-      description: description.trim(),
       price,
     });
 
@@ -60,7 +60,7 @@ export const updateItem = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const { name, color, gas, year, description, price } = req.body;
+    const { name, color, gas, year, price } = req.body;
 
     for (const value in req.body) {
       if (!req.body[value]) {
@@ -73,11 +73,33 @@ export const updateItem = async (
       color: color.trim(),
       gas: gas.trim(),
       year,
-      description: description.trim(),
       price,
     });
 
     res.status(201).json(updateCar);
+  } catch (error) {
+    const err = error as Error;
+    res.status(404).json(err.message);
+  }
+};
+
+export const updateCarProp = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id, prop } = req.params;
+    let { newData } = req.body;
+
+    newData = newData.toString().trim();
+
+    console.log(newData);
+
+    if (prop === "gas" && newData !== "electric" && newData !== "gasoline") {
+      throw Error("Gas must be electric or gasoline");
+    }
+    const newProp = await updateSingleCarService(id, { [prop]: newData });
+    res.status(200).json(newProp);
   } catch (error) {
     const err = error as Error;
     res.status(404).json(err.message);

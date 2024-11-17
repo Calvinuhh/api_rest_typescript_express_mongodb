@@ -4,6 +4,5 @@ export default interface Car {
   color: string;
   gas: "gasoline" | "electric";
   year: number;
-  description: string;
   price: number;
 }

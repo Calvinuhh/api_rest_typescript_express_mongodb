@@ -1,5 +1,5 @@
 import Car from "../interfaces/Car.interface";
-import { carDTO } from "../DTOs/carsDTO";
+import { carDTO, carSinglePropDTO } from "../DTOs/carsDTO";
 import ItemModel from "../models/Item";
 
 export const createCarService = async (item: carDTO): Promise<Car> => {
@@ -35,6 +35,19 @@ export const updateCarService = async (
   if (!updateCar) {
     throw Error("Car Not Found");
   } else return updateCar;
+};
+
+export const updateSingleCarService = async (
+  id: string,
+  data: carSinglePropDTO
+): Promise<carSinglePropDTO> => {
+  const updateProp = await ItemModel.findOneAndUpdate({ _id: id }, data, {
+    new: true,
+  });
+
+  if (!updateProp) {
+    throw Error("Car Not Found");
+  } else return updateProp;
 };
 
 export const deleteCarService = async (id: string): Promise<Car> => {
