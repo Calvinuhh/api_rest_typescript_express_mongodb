@@ -1,7 +1,8 @@
 import Car from "../interfaces/Car.interface";
+import { carDTO } from "../DTOs/carsDTO";
 import ItemModel from "../models/Item";
 
-export const createCarService = async (item: Car): Promise<Car> => {
+export const createCarService = async (item: carDTO): Promise<Car> => {
   const newItem = await ItemModel.create(item);
 
   return newItem;
@@ -25,7 +26,7 @@ export const getCarService = async (id: string): Promise<Car | null> => {
 
 export const updateCarService = async (
   id: string,
-  data: Car
+  data: carDTO
 ): Promise<Car | null> => {
   const updateCar = await ItemModel.findOneAndUpdate({ _id: id }, data, {
     new: true,

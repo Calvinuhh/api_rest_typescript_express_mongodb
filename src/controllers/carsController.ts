@@ -5,7 +5,7 @@ import {
   getCarService,
   updateCarService,
   deleteCarService,
-} from "../services/item";
+} from "../services/carsServices";
 
 export const createItem = async (
   req: Request,
@@ -69,11 +69,11 @@ export const updateItem = async (
     }
 
     const updateCar = await updateCarService(id, {
-      name,
-      color,
-      gas,
+      name: name.trim(),
+      color: color.trim(),
+      gas: gas.trim(),
       year,
-      description,
+      description: description.trim(),
       price,
     });
 

@@ -6,14 +6,14 @@ import {
   getItem,
   updateItem,
   deleteItem,
-} from "../../controllers/item";
+} from "../../controllers/carsController";
 
-const itemsRouter: Router = Router();
+const carsRouter: Router = Router();
 
-itemsRouter.post("/", createItem);
-itemsRouter.get("/", getItems);
-itemsRouter.get("/:id", getItem);
-itemsRouter.put("/:id", updateItem);
-itemsRouter.delete("/:id", deleteItem);
+carsRouter.post("/", createItem);
+carsRouter.get("/", getItems);
+carsRouter.get("/:id", getItem);
+carsRouter.put("/:id", updateItem);
+carsRouter.delete("/:id", deleteItem);
 
-export default itemsRouter;
+export default carsRouter;
