@@ -11,7 +11,5 @@ export type carDTO = {
 };
 
 export type carSinglePropDTO = {
-  gas?: "gasoline" | "electric";
-  state?: "new" | "used";
   prop?: string | number | boolean;
 };

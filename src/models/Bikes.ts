@@ -19,6 +19,7 @@ const ItemSchema = new Schema<Bike>(
     transmission: {
       type: String,
       enum: ["automatic", "manual"],
+      required: true,
     },
     year: {
       type: Number,
@@ -39,6 +40,6 @@ const ItemSchema = new Schema<Bike>(
   }
 );
 
-const ItemModel = model("bikes", ItemSchema);
+const BikeModel = model("bikes", ItemSchema);
 
-export default ItemModel;
+export default BikeModel;

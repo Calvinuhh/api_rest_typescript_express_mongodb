@@ -49,6 +49,6 @@ const ItemSchema = new Schema<Car>(
   }
 );
 
-const ItemModel = model("cars", ItemSchema);
+const CarModel = model("cars", ItemSchema);
 
-export default ItemModel;
+export default CarModel;

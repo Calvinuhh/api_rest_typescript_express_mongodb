@@ -1,10 +1,10 @@
 import { Router } from "express";
-import carsRouter from "./routes/items.routes";
-import blogsRouter from "./routes/blog.routes";
+import carsRouter from "./routes/cars.routes";
+import bikesRouter from "./routes/bikes.routes";
 
 const router: Router = Router();
 
 router.use("/cars", carsRouter);
-router.use("/blogs", blogsRouter);
+router.use("/bikes", bikesRouter);
 
 export default router;

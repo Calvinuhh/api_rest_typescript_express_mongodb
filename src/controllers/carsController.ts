@@ -7,6 +7,7 @@ import {
   deleteCarService,
   updatePropCarService,
 } from "../services/carsServices";
+import { carDTO } from "../DTOs/carsDTO";
 
 export const createItem = async (
   req: Request,
@@ -23,12 +24,12 @@ export const createItem = async (
       state,
       doors,
       convertible,
-    } = req.body;
+    }: carDTO = req.body;
 
-    const responseItem = await createCarService({
+    const newCar = await createCarService({
       name: name.trim(),
       color: color.trim(),
-      gas: gas.trim(),
+      gas,
       transmission,
       year,
       price,
@@ -37,7 +38,7 @@ export const createItem = async (
       convertible,
     });
 
-    res.status(201).json(responseItem);
+    res.status(201).json(newCar);
   } catch (error) {
     const err = error as Error;
     res.status(400).json(err.message);
@@ -46,9 +47,9 @@ export const createItem = async (
 
 export const getItems = async (req: Request, res: Response): Promise<void> => {
   try {
-    const items = await getCarsService();
+    const cars = await getCarsService();
 
-    res.status(200).json(items);
+    res.status(200).json(cars);
   } catch (error) {
     const err = error as Error;
     res.status(404).json(err.message);
@@ -59,9 +60,9 @@ export const getItem = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
 
-    const item = await getCarService(id);
+    const car = await getCarService(id);
 
-    res.status(200).json(item);
+    res.status(200).json(car);
   } catch (error) {
     const err = error as Error;
     res.status(404).json(err.message);
@@ -84,7 +85,7 @@ export const updateItem = async (
       state,
       doors,
       convertible,
-    } = req.body;
+    }: carDTO = req.body;
 
     for (const value in req.body) {
       if (!req.body[value]) {
@@ -95,7 +96,7 @@ export const updateItem = async (
     const updateCar = await updateCarService(id, {
       name: name.trim(),
       color: color.trim(),
-      gas: gas.trim(),
+      gas,
       transmission,
       year,
       price,
@@ -120,8 +121,6 @@ export const updateCarProp = async (
     let { newData } = req.body;
 
     newData = newData.toString().trim();
-
-    console.log(newData);
 
     if (prop === "gas" && newData !== "electric" && newData !== "gasoline") {
       throw Error("Gas must be electric or gasoline");

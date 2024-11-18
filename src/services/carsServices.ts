@@ -1,15 +1,15 @@
 import Car from "../interfaces/Car.interface";
+import CarModel from "../models/Cars";
 import { carDTO, carSinglePropDTO } from "../DTOs/carsDTO";
-import ItemModel from "../models/Cars";
 
 export const createCarService = async (item: carDTO): Promise<Car> => {
-  const newItem = await ItemModel.create(item);
+  const newItem = await CarModel.create(item);
 
   return newItem;
 };
 
 export const getCarsService = async (): Promise<Car[]> => {
-  const items = await ItemModel.find();
+  const items = await CarModel.find();
 
   if (items.length === 0) {
     throw Error("No Cars Found");
@@ -17,7 +17,7 @@ export const getCarsService = async (): Promise<Car[]> => {
 };
 
 export const getCarService = async (id: string): Promise<Car | null> => {
-  const item = await ItemModel.findOne({ _id: id });
+  const item = await CarModel.findOne({ _id: id });
 
   if (!item) {
     throw Error("Car Not Found");
@@ -28,7 +28,7 @@ export const updateCarService = async (
   id: string,
   data: carDTO
 ): Promise<Car | null> => {
-  const updateCar = await ItemModel.findOneAndUpdate({ _id: id }, data, {
+  const updateCar = await CarModel.findOneAndUpdate({ _id: id }, data, {
     new: true,
   });
 
@@ -41,7 +41,7 @@ export const updatePropCarService = async (
   id: string,
   data: carSinglePropDTO
 ): Promise<carSinglePropDTO> => {
-  const updateProp = await ItemModel.findOneAndUpdate({ _id: id }, data, {
+  const updateProp = await CarModel.findOneAndUpdate({ _id: id }, data, {
     new: true,
   });
 
@@ -51,7 +51,7 @@ export const updatePropCarService = async (
 };
 
 export const deleteCarService = async (id: string): Promise<Car> => {
-  const deletedCar = await ItemModel.findOneAndDelete({ _id: id });
+  const deletedCar = await CarModel.findOneAndDelete({ _id: id });
 
   if (!deletedCar) {
     throw Error("Car Not Found");
