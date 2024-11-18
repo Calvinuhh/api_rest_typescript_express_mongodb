@@ -11,5 +11,11 @@ export type carDTO = {
 };
 
 export type carSinglePropDTO = {
-  prop?: string | number | boolean;
+  gas?: "gasoline" | "electric";
+  state?: "new" | "used";
+  transmission?: "automatic" | "manual";
+  convertible?: true | false;
+
+  doors?: 2 | 4;
+  prop?: string | number;
 };

@@ -6,10 +6,14 @@ const ItemSchema = new Schema<Bike>(
     name: {
       type: String,
       required: true,
+      minlength: 3,
+      maxlength: 20,
     },
     color: {
       type: String,
       required: true,
+      minlength: 3,
+      maxlength: 20,
     },
     gas: {
       type: String,
@@ -24,10 +28,13 @@ const ItemSchema = new Schema<Bike>(
     year: {
       type: Number,
       required: true,
+      min: 1950,
+      max: new Date().getFullYear(),
     },
     price: {
       type: Number,
       required: true,
+      max: 1136000,
     },
     state: {
       type: String,

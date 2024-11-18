@@ -8,6 +8,14 @@ import {
   updatePropCarService,
 } from "../services/carsServices";
 import { carDTO } from "../DTOs/carsDTO";
+import {
+  validateDoorsParams,
+  validateEmptyParams,
+  validateGasParams,
+  validateStateParams,
+  validateTransmissionParams,
+  validatePatchParams,
+} from "../utils/validations";
 
 export const createItem = async (
   req: Request,
@@ -25,6 +33,23 @@ export const createItem = async (
       doors,
       convertible,
     }: carDTO = req.body;
+
+    validateEmptyParams({
+      name,
+      color,
+      gas,
+      transmission,
+      year,
+      price,
+      state,
+      doors,
+      convertible,
+    });
+
+    validateGasParams({ gas });
+    validateTransmissionParams({ transmission });
+    validateStateParams({ state });
+    validateDoorsParams({ doors });
 
     const newCar = await createCarService({
       name: name.trim(),
@@ -87,11 +112,22 @@ export const updateItem = async (
       convertible,
     }: carDTO = req.body;
 
-    for (const value in req.body) {
-      if (!req.body[value]) {
-        throw Error(`Missing field: ${value}`);
-      }
-    }
+    validateEmptyParams({
+      name,
+      color,
+      gas,
+      transmission,
+      year,
+      price,
+      state,
+      doors,
+      convertible,
+    });
+
+    validateGasParams({ gas });
+    validateTransmissionParams({ transmission });
+    validateStateParams({ state });
+    validateDoorsParams({ doors });
 
     const updateCar = await updateCarService(id, {
       name: name.trim(),
@@ -122,9 +158,10 @@ export const updateCarProp = async (
 
     newData = newData.toString().trim();
 
-    if (prop === "gas" && newData !== "electric" && newData !== "gasoline") {
-      throw Error("Gas must be electric or gasoline");
-    }
+    if (!newData) throw Error(`missing field ${prop}`);
+
+    validatePatchParams({ prop }, newData);
+
     const newProp = await updatePropCarService(id, { [prop]: newData });
     res.status(200).json(newProp);
   } catch (error) {
