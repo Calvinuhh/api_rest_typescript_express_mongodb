@@ -15,7 +15,13 @@ import {
   validateStateParams,
   validateTransmissionParams,
   validatePatchParams,
+  validateLength,
+  validateStrings,
+  validateNumbers,
+  validateNumbersValues,
 } from "../utils/validations";
+
+const actualYear = new Date().getFullYear();
 
 export const createItem = async (
   req: Request,
@@ -46,6 +52,14 @@ export const createItem = async (
       convertible,
     });
 
+    validateLength(name, 3, 20, "name");
+    validateLength(color, 3, 20, "color");
+    validateStrings(name, "name");
+    validateStrings(color, "color");
+    validateNumbers(year, "year");
+    validateNumbers(price, "price");
+    validateNumbersValues(year, 1950, actualYear, "year");
+    validateNumbersValues(price, 1, 1136000, "price");
     validateGasParams({ gas });
     validateTransmissionParams({ transmission });
     validateStateParams({ state });
@@ -124,6 +138,14 @@ export const updateItem = async (
       convertible,
     });
 
+    validateLength(name, 3, 20, "name");
+    validateLength(color, 3, 20, "color");
+    validateStrings(name, "name");
+    validateStrings(color, "color");
+    validateNumbers(year, "year");
+    validateNumbers(price, "price");
+    validateNumbersValues(year, 1950, actualYear, "year");
+    validateNumbersValues(price, 1, 1136000, "price");
     validateGasParams({ gas });
     validateTransmissionParams({ transmission });
     validateStateParams({ state });

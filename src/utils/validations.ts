@@ -60,4 +60,42 @@ export const validatePatchParams = (
   }
 };
 
-export const validateStrings = (): void => {};
+export const validateLength = (
+  param: string,
+  number1: number,
+  number2: number,
+  input: string
+): void => {
+  if (param.length < number1 || param.length > number2) {
+    throw Error(
+      `length of input ${input} must be between ${number1} and ${number2}`
+    );
+  }
+};
+
+export const validateStrings = (param: string, input: string): void => {
+  const regex = /^[a-zA-Z\s]+$/;
+
+  if (!regex.test(param))
+    throw Error(
+      `In input ${input} are only allowed letters, no numbers or special characters`
+    );
+};
+
+export const validateNumbers = (param: number, input: string) => {
+  const regex = /^[0-9]+$/;
+  if (!regex.test(param.toString()))
+    throw Error(
+      `In input ${input} are only allowed numbers, no spaces, letters or special characters`
+    );
+};
+
+export const validateNumbersValues = (
+  param: number,
+  number1: number,
+  number2: number,
+  input: string
+) => {
+  if (param < number1 || param > number2)
+    throw Error(`input ${input} must be between ${number1} and ${number2}`);
+};

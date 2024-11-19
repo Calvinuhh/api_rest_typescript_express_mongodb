@@ -15,7 +15,6 @@ export type carSinglePropDTO = {
   state?: "new" | "used";
   transmission?: "automatic" | "manual";
   convertible?: true | false;
-
   doors?: 2 | 4;
   prop?: string | number;
 };
