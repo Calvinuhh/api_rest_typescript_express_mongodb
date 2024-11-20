@@ -51,8 +51,8 @@ export const createItem = async (
     validateStateParams({ state });
 
     const newBike = await createBikeService({
-      name: name.trim(),
-      color: color.trim(),
+      name,
+      color,
       gas,
       transmission,
       year,
