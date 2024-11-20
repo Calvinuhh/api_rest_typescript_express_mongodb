@@ -1,4 +1,4 @@
-import Car from "../interfaces/Car.interface";
+import Car from "../interfaces/car.interface";
 import CarModel from "../models/Cars";
 import { carDTO, carSinglePropDTO } from "../DTOs/carsDTO";
 

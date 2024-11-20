@@ -1,4 +1,4 @@
-export type BikeDTO = {
+export interface BikeDTO {
   name: string;
   color: string;
   gas: "gasoline" | "electric";
@@ -6,11 +6,11 @@ export type BikeDTO = {
   year: number;
   price: number;
   state: "new" | "used";
-};
+}
 
-export type bikeSinglePropDTO = {
+export interface bikeSinglePropDTO {
   gas?: "gasoline" | "electric";
   transmission?: "automatic" | "manual";
   state?: "new" | "used";
   prop?: string | number;
-};
+}

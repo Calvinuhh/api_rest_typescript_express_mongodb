@@ -1,4 +1,4 @@
-import Bike from "../interfaces/Bikes.interface";
+import Bike from "../interfaces/bikes.interface";
 import BikeModel from "../models/Bikes";
 import { BikeDTO, bikeSinglePropDTO } from "../DTOs/bikesDTO";
 

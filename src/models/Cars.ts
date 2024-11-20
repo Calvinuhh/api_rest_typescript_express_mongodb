@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import Car from "../interfaces/Car.interface";
+import Car from "../interfaces/car.interface";
 
-const ItemSchema = new Schema<Car>(
+const CarSchema = new Schema<Car>(
   {
     name: {
       type: String,
@@ -56,6 +56,6 @@ const ItemSchema = new Schema<Car>(
   }
 );
 
-const CarModel = model("cars", ItemSchema);
+const CarModel = model("car", CarSchema);
 
 export default CarModel;
