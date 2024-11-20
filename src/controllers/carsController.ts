@@ -23,7 +23,7 @@ import {
   validatePatchLegthParams,
   validatePatchNumbersParams,
   validatePatchNumbersValues,
-} from "../utils/validations";
+} from "../utils/carValidations";
 
 const actualYear = new Date().getFullYear();
 
@@ -33,8 +33,6 @@ export const createItem = async (
 ): Promise<void> => {
   try {
     const {
-      name,
-      color,
       gas,
       transmission,
       year,
@@ -43,6 +41,11 @@ export const createItem = async (
       doors,
       convertible,
     }: carDTO = req.body;
+
+    let { name, color }: carDTO = req.body;
+
+    name = name.trim();
+    color = color.trim();
 
     validateEmptyParams({
       name,
@@ -55,7 +58,6 @@ export const createItem = async (
       doors,
       convertible,
     });
-
     validateStrings(name, "name");
     validateStrings(color, "color");
     validateNumbers(year, "year");
@@ -70,8 +72,8 @@ export const createItem = async (
     validateDoorsParams({ doors });
 
     const newCar = await createCarService({
-      name: name.trim(),
-      color: color.trim(),
+      name,
+      color,
       gas,
       transmission,
       year,
@@ -119,8 +121,6 @@ export const updateItem = async (
   try {
     const { id } = req.params;
     const {
-      name,
-      color,
       gas,
       transmission,
       year,
@@ -129,6 +129,11 @@ export const updateItem = async (
       doors,
       convertible,
     }: carDTO = req.body;
+
+    let { name, color }: carDTO = req.body;
+
+    name = name.trim();
+    color = color.trim();
 
     validateEmptyParams({
       name,
@@ -141,7 +146,6 @@ export const updateItem = async (
       doors,
       convertible,
     });
-
     validateStrings(name, "name");
     validateStrings(color, "color");
     validateNumbers(year, "year");
@@ -156,8 +160,8 @@ export const updateItem = async (
     validateDoorsParams({ doors });
 
     const updateCar = await updateCarService(id, {
-      name: name.trim(),
-      color: color.trim(),
+      name,
+      color,
       gas,
       transmission,
       year,

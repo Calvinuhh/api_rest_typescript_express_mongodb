@@ -8,14 +8,47 @@ import {
   updatePropBikeService,
 } from "../services/bikesServices";
 import { BikeDTO } from "../DTOs/bikesDTO";
+import {
+  validateEmptyParams,
+  validateGasParams,
+  validateTransmissionParams,
+  validateStateParams,
+  validatePatchParams,
+  validateLength,
+  validateStrings,
+  validateNumbers,
+  validateNumbersValues,
+  validatePatchStringsParams,
+  validatePatchNumbersParams,
+  validatePatchLegthParams,
+  validatePatchNumbersValues,
+} from "../utils/bikeValidations";
+
+const actualYear = new Date().getFullYear();
 
 export const createItem = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
-    const { name, color, gas, transmission, year, price, state }: BikeDTO =
-      req.body;
+    const { gas, transmission, year, price, state }: BikeDTO = req.body;
+    let { name, color } = req.body;
+
+    name = name.trim();
+    color = color.trim();
+
+    validateEmptyParams({ name, color, gas, transmission, year, price, state });
+    validateStrings(name, "name");
+    validateStrings(color, "color");
+    validateNumbers(year, "year");
+    validateNumbers(price, "price");
+    validateLength(name, 3, 20, "name");
+    validateLength(color, 3, 20, "color");
+    validateNumbersValues(year, 1950, actualYear, "year");
+    validateNumbersValues(price, 1, 1136000, "price");
+    validateGasParams({ gas });
+    validateTransmissionParams({ transmission });
+    validateStateParams({ state });
 
     const newBike = await createBikeService({
       name: name.trim(),
@@ -64,18 +97,25 @@ export const updateItem = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const { name, color, gas, transmission, year, price, state }: BikeDTO =
-      req.body;
+    const { gas, transmission, year, price, state }: BikeDTO = req.body;
+    let { name, color } = req.body;
 
-    for (const value in req.body) {
-      if (!req.body[value]) {
-        throw Error(`Missing field: ${value}`);
-      }
-    }
+    validateEmptyParams({ name, color, gas, transmission, year, price, state });
+    validateStrings(name, "name");
+    validateStrings(color, "color");
+    validateNumbers(year, "year");
+    validateNumbers(price, "price");
+    validateLength(name, 3, 20, "name");
+    validateLength(color, 3, 20, "color");
+    validateNumbersValues(year, 1950, actualYear, "year");
+    validateNumbersValues(price, 1, 1136000, "price");
+    validateGasParams({ gas });
+    validateTransmissionParams({ transmission });
+    validateStateParams({ state });
 
     const updateBike = await updateBikeService(id, {
-      name: name.trim(),
-      color: color.trim(),
+      name,
+      color,
       gas,
       transmission,
       year,
@@ -100,9 +140,14 @@ export const updateBikeProp = async (
 
     newData = newData.toString().trim();
 
-    if (prop === "gas" && newData !== "electric" && newData !== "gasoline") {
-      throw Error("Gas must be electric or gasoline");
-    }
+    if (!newData) throw Error(`missing field ${prop}`);
+
+    validatePatchStringsParams(newData, prop);
+    validatePatchNumbersParams(newData, prop);
+    validatePatchLegthParams(newData, prop, 3, 20);
+    validatePatchNumbersValues(newData, prop);
+    validatePatchParams({ prop }, newData);
+
     const newProp = await updatePropBikeService(id, { [prop]: newData });
     res.status(200).json(newProp);
   } catch (error) {

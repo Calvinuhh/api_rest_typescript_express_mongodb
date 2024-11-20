@@ -12,8 +12,8 @@ export type carDTO = {
 
 export type carSinglePropDTO = {
   gas?: "gasoline" | "electric";
-  state?: "new" | "used";
   transmission?: "automatic" | "manual";
+  state?: "new" | "used";
   convertible?: true | false;
   doors?: 2 | 4;
   prop?: string | number;
