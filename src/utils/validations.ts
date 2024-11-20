@@ -1,5 +1,7 @@
 import { carDTO, carSinglePropDTO } from "../DTOs/carsDTO";
 
+const actualYear = new Date().getFullYear();
+
 export const validateEmptyParams = (params: carDTO): void => {
   for (const value in params) {
     if (!params[value as keyof carDTO]) throw Error(`Missing field ${value}`);
@@ -35,7 +37,7 @@ export const validateDoorsParams = (param: carSinglePropDTO): void => {
 
 export const validatePatchParams = (
   params: carSinglePropDTO,
-  data: string | number | boolean
+  data: string | number
 ): void => {
   const { prop } = params;
 
@@ -98,4 +100,63 @@ export const validateNumbersValues = (
 ) => {
   if (param < number1 || param > number2)
     throw Error(`input ${input} must be between ${number1} and ${number2}`);
+};
+
+export const validatePatchStringsParams = (param: string, input: string) => {
+  const regex = /^[a-zA-Z\s]+$/;
+
+  if (input === "name") {
+    if (!regex.test(param))
+      throw Error(
+        `In input ${input} are only allowed letters, no numbers or special characters`
+      );
+  }
+  if (input === "color") {
+    if (!regex.test(param))
+      throw Error(
+        `In input ${input} are only allowed letters, no numbers or special characters`
+      );
+  }
+};
+
+export const validatePatchNumbersParams = (param: number, input: string) => {
+  const regex = /^[0-9]+$/;
+  if (input === "year") {
+    if (!regex.test(param.toString()))
+      throw Error(
+        `In input ${input} are only allowed numbers, no spaces, letters or special characters`
+      );
+  }
+  if (input === "price") {
+    if (!regex.test(param.toString()))
+      throw Error(
+        `In input ${input} are only allowed numbers, no spaces, letters or special characters`
+      );
+  }
+};
+
+export const validatePatchLegthParams = (
+  param: string,
+  input: string,
+  number1: number,
+  number2: number
+) => {
+  if ((input === "name" && param.length < 3) || param.length > 20)
+    throw Error(
+      `Length of input ${input} must be between ${number1} and ${number2}`
+    );
+  if ((input === "color" && param.length < 3) || param.length > 20)
+    throw Error(
+      `Length of input ${input} must be between ${number1} and ${number2}`
+    );
+};
+
+export const validatePatchNumbersValues = (param: number, input: string) => {
+  console.log(input);
+
+  if (input === "year" && (param < 1950 || param > actualYear)) {
+    throw Error(`input ${input} must be between 1950 and ${actualYear}`);
+  } else if (input === "price" && (param < 1 || param > 1136000)) {
+    throw Error(`input ${input} must be between 1 and 1136000`);
+  }
 };

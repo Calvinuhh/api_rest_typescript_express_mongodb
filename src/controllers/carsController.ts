@@ -19,6 +19,10 @@ import {
   validateStrings,
   validateNumbers,
   validateNumbersValues,
+  validatePatchStringsParams,
+  validatePatchLegthParams,
+  validatePatchNumbersParams,
+  validatePatchNumbersValues,
 } from "../utils/validations";
 
 const actualYear = new Date().getFullYear();
@@ -52,12 +56,12 @@ export const createItem = async (
       convertible,
     });
 
-    validateLength(name, 3, 20, "name");
-    validateLength(color, 3, 20, "color");
     validateStrings(name, "name");
     validateStrings(color, "color");
     validateNumbers(year, "year");
     validateNumbers(price, "price");
+    validateLength(name, 3, 20, "name");
+    validateLength(color, 3, 20, "color");
     validateNumbersValues(year, 1950, actualYear, "year");
     validateNumbersValues(price, 1, 1136000, "price");
     validateGasParams({ gas });
@@ -138,12 +142,12 @@ export const updateItem = async (
       convertible,
     });
 
-    validateLength(name, 3, 20, "name");
-    validateLength(color, 3, 20, "color");
     validateStrings(name, "name");
     validateStrings(color, "color");
     validateNumbers(year, "year");
     validateNumbers(price, "price");
+    validateLength(name, 3, 20, "name");
+    validateLength(color, 3, 20, "color");
     validateNumbersValues(year, 1950, actualYear, "year");
     validateNumbersValues(price, 1, 1136000, "price");
     validateGasParams({ gas });
@@ -182,6 +186,10 @@ export const updateCarProp = async (
 
     if (!newData) throw Error(`missing field ${prop}`);
 
+    validatePatchStringsParams(newData, prop);
+    validatePatchNumbersParams(newData, prop);
+    validatePatchLegthParams(newData, prop, 3, 20);
+    validatePatchNumbersValues(newData, prop);
     validatePatchParams({ prop }, newData);
 
     const newProp = await updatePropCarService(id, { [prop]: newData });
