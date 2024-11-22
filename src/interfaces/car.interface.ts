@@ -1,12 +1,8 @@
-export default interface Car {
-  id: string;
-  name: string;
-  color: string;
-  gas: "gasoline" | "electric";
-  transmission: "automatic" | "manual";
-  year: number;
-  price: number;
-  state: "new" | "used";
-  doors: 2 | 4;
-  convertible: true | false;
+import Bike from "./bikes.interface";
+
+import { Doors } from "./types";
+
+export default interface Car extends Bike {
+  doors: Doors;
+  convertible: boolean;
 }

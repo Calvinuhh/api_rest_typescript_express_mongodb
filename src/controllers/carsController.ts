@@ -7,7 +7,7 @@ import {
   deleteCarService,
   updatePropCarService,
 } from "../services/carsServices";
-import { carDTO } from "../DTOs/carsDTO";
+import { CarDTO } from "../DTOs/carDTOs";
 import {
   validateDoorsParams,
   validateEmptyParams,
@@ -40,9 +40,9 @@ export const createItem = async (
       state,
       doors,
       convertible,
-    }: carDTO = req.body;
+    }: CarDTO = req.body;
 
-    let { name, color }: carDTO = req.body;
+    let { name, color }: CarDTO = req.body;
 
     name = name.trim();
     color = color.trim();
@@ -66,10 +66,10 @@ export const createItem = async (
     validateLength(color, 3, 20, "color");
     validateNumbersValues(year, 1950, actualYear, "year");
     validateNumbersValues(price, 1, 1136000, "price");
-    validateGasParams({ gas });
-    validateTransmissionParams({ transmission });
-    validateStateParams({ state });
-    validateDoorsParams({ doors });
+    validateGasParams(gas);
+    validateTransmissionParams(transmission);
+    validateStateParams(state);
+    validateDoorsParams(doors);
 
     const newCar = await createCarService({
       name,
@@ -128,9 +128,9 @@ export const updateItem = async (
       state,
       doors,
       convertible,
-    }: carDTO = req.body;
+    }: CarDTO = req.body;
 
-    let { name, color }: carDTO = req.body;
+    let { name, color }: CarDTO = req.body;
 
     name = name.trim();
     color = color.trim();
@@ -154,10 +154,10 @@ export const updateItem = async (
     validateLength(color, 3, 20, "color");
     validateNumbersValues(year, 1950, actualYear, "year");
     validateNumbersValues(price, 1, 1136000, "price");
-    validateGasParams({ gas });
-    validateTransmissionParams({ transmission });
-    validateStateParams({ state });
-    validateDoorsParams({ doors });
+    validateGasParams(gas);
+    validateTransmissionParams(transmission);
+    validateStateParams(state);
+    validateDoorsParams(doors);
 
     const updateCar = await updateCarService(id, {
       name,
@@ -194,7 +194,7 @@ export const updateCarProp = async (
     validatePatchNumbersParams(newData, prop);
     validatePatchLegthParams(newData, prop, 3, 20);
     validatePatchNumbersValues(newData, prop);
-    validatePatchParams({ prop }, newData);
+    validatePatchParams(prop, newData);
 
     const newProp = await updatePropCarService(id, { [prop]: newData });
     res.status(200).json(newProp);

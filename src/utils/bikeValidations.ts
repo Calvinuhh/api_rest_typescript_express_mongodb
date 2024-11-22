@@ -1,4 +1,5 @@
-import { BikeDTO, bikeSinglePropDTO } from "../DTOs/bikesDTO";
+import { BikeDTO } from "../DTOs/bikeDTOs";
+import { Gas, Transmission, State } from "../interfaces/types";
 
 const actualYear = new Date().getFullYear();
 
@@ -8,41 +9,33 @@ export const validateEmptyParams = (params: BikeDTO): void => {
   }
 };
 
-export const validateGasParams = (param: bikeSinglePropDTO): void => {
-  const { gas } = param;
-  if (gas !== "electric" && gas !== "gasoline")
+export const validateGasParams = (param: Gas): void => {
+  if (param !== "electric" && param !== "gasoline")
     throw Error("Gas must be 'gasoline' or 'electric'");
 };
 
-export const validateTransmissionParams = (param: bikeSinglePropDTO): void => {
-  const { transmission } = param;
-  if (transmission !== "automatic" && transmission !== "manual") {
+export const validateTransmissionParams = (param: Transmission): void => {
+  if (param !== "automatic" && param !== "manual") {
     throw Error("Transmission must be 'automatic' or 'manual'");
   }
 };
 
-export const validateStateParams = (param: bikeSinglePropDTO): void => {
-  const { state } = param;
-  if (state !== "new" && state !== "used") {
+export const validateStateParams = (param: State): void => {
+  if (param !== "new" && param !== "used") {
     throw Error("State must be 'new' or 'used'");
   }
 };
 
-export const validatePatchParams = (
-  params: bikeSinglePropDTO,
-  data: string | number
-): void => {
-  const { prop } = params;
-
-  if (prop === "gas" && data !== "electric" && data !== "gasoline") {
+export const validatePatchParams = (params: string, data: string): void => {
+  if (params === "gas" && data !== "electric" && data !== "gasoline") {
     throw Error("Gas must be 'electric' or 'gasoline'");
   } else if (
-    prop === "transmission" &&
+    params === "transmission" &&
     data !== "automatic" &&
     data !== "manual"
   ) {
     throw Error("Transmission must be 'manual' or 'automatic'");
-  } else if (prop === "state" && data !== "new" && data !== "used") {
+  } else if (params === "state" && data !== "new" && data !== "used") {
     throw Error("State must be 'new' or 'used'");
   }
 };

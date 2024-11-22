@@ -1,6 +1,6 @@
 import Bike from "../interfaces/bikes.interface";
 import BikeModel from "../models/Bikes";
-import { BikeDTO, bikeSinglePropDTO } from "../DTOs/bikesDTO";
+import { BikeDTO } from "../DTOs/bikeDTOs";
 
 export const createBikeService = async (item: BikeDTO): Promise<Bike> => {
   const newItem = await BikeModel.create(item);
@@ -39,8 +39,8 @@ export const updateBikeService = async (
 
 export const updatePropBikeService = async (
   id: string,
-  data: bikeSinglePropDTO
-): Promise<bikeSinglePropDTO> => {
+  data: Partial<BikeDTO>
+): Promise<BikeDTO> => {
   const updateProp = await BikeModel.findOneAndUpdate({ _id: id }, data, {
     new: true,
   });

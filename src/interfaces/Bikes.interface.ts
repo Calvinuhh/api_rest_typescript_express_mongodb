@@ -1,10 +1,12 @@
+import { Gas, State, Transmission } from "./types";
+
 export default interface Bike {
   id: string;
   name: string;
   color: string;
-  gas: "gasoline" | "electric";
-  transmission: "automatic" | "manual";
+  gas: Gas;
+  transmission: Transmission;
   year: number;
   price: number;
-  state: "new" | "used";
+  state: State;
 }

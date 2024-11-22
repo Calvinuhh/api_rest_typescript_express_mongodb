@@ -7,7 +7,7 @@ import {
   updateBikeService,
   updatePropBikeService,
 } from "../services/bikesServices";
-import { BikeDTO } from "../DTOs/bikesDTO";
+import { BikeDTO } from "../DTOs/bikeDTOs";
 import {
   validateEmptyParams,
   validateGasParams,
@@ -32,7 +32,7 @@ export const createItem = async (
 ): Promise<void> => {
   try {
     const { gas, transmission, year, price, state }: BikeDTO = req.body;
-    let { name, color } = req.body;
+    let { name, color }: BikeDTO = req.body;
 
     name = name.trim();
     color = color.trim();
@@ -46,9 +46,9 @@ export const createItem = async (
     validateLength(color, 3, 20, "color");
     validateNumbersValues(year, 1950, actualYear, "year");
     validateNumbersValues(price, 1, 1136000, "price");
-    validateGasParams({ gas });
-    validateTransmissionParams({ transmission });
-    validateStateParams({ state });
+    validateGasParams(gas);
+    validateTransmissionParams(transmission);
+    validateStateParams(state);
 
     const newBike = await createBikeService({
       name,
@@ -98,7 +98,7 @@ export const updateItem = async (
   try {
     const { id } = req.params;
     const { gas, transmission, year, price, state }: BikeDTO = req.body;
-    let { name, color } = req.body;
+    let { name, color }: BikeDTO = req.body;
 
     validateEmptyParams({ name, color, gas, transmission, year, price, state });
     validateStrings(name, "name");
@@ -109,9 +109,9 @@ export const updateItem = async (
     validateLength(color, 3, 20, "color");
     validateNumbersValues(year, 1950, actualYear, "year");
     validateNumbersValues(price, 1, 1136000, "price");
-    validateGasParams({ gas });
-    validateTransmissionParams({ transmission });
-    validateStateParams({ state });
+    validateGasParams(gas);
+    validateTransmissionParams(transmission);
+    validateStateParams(state);
 
     const updateBike = await updateBikeService(id, {
       name,
@@ -146,7 +146,7 @@ export const updateBikeProp = async (
     validatePatchNumbersParams(newData, prop);
     validatePatchLegthParams(newData, prop, 3, 20);
     validatePatchNumbersValues(newData, prop);
-    validatePatchParams({ prop }, newData);
+    validatePatchParams(prop, newData);
 
     const newProp = await updatePropBikeService(id, { [prop]: newData });
     res.status(200).json(newProp);

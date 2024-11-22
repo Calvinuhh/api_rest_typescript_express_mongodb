@@ -8,12 +8,14 @@ const CarSchema = new Schema<Car>(
       required: true,
       minlength: 3,
       maxlength: 20,
+      match: /^[a-zA-Z\s]+$/,
     },
     color: {
       type: String,
       required: true,
       minlength: 3,
       maxlength: 20,
+      match: /^[a-zA-Z\s]+$/,
     },
     gas: {
       type: String,
