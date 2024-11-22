@@ -1,5 +1,5 @@
-import Car from "../interfaces/car.interface";
 import CarModel from "../models/Cars";
+import Car from "../interfaces/car.interface";
 import { CarDTO } from "../DTOs/carDTOs";
 
 export const createCarService = async (item: CarDTO): Promise<Car> => {

@@ -1,4 +1,4 @@
-import Bike from "./bikes.interface";
+import Bike from "./bike.interface";
 
 import { Doors } from "./types";
 

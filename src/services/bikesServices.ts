@@ -1,5 +1,5 @@
-import Bike from "../interfaces/bikes.interface";
 import BikeModel from "../models/Bikes";
+import Bike from "../interfaces/bike.interface";
 import { BikeDTO } from "../DTOs/bikeDTOs";
 
 export const createBikeService = async (item: BikeDTO): Promise<Bike> => {
