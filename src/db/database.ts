@@ -11,6 +11,7 @@ async function dbConnect(): Promise<void> {
   } catch (error) {
     const err = error as Error;
     console.log(err.message);
+    throw Error(`Unable to connect to database`);
   }
 }
 

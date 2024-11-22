@@ -49,6 +49,6 @@ const BikeSchema = new Schema<Bike>(
   }
 );
 
-const BikeModel = model("bike", BikeSchema);
+const BikeModel = model<Bike>("bike", BikeSchema);
 
 export default BikeModel;

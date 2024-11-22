@@ -58,6 +58,6 @@ const CarSchema = new Schema<Car>(
   }
 );
 
-const CarModel = model("car", CarSchema);
+const CarModel = model<Car>("car", CarSchema);
 
 export default CarModel;
